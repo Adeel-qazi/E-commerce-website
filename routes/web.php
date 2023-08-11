@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-// front
+// frontend
 Route::get('/',[FrontController::class,'index'])->name('front.home');
 Route::get('/shop/{categorySlug?}/{subCategorySlug?}',[ShopController::class,'index'])->name('front.shop');
 Route::get('/product/{slug}',[ShopController::class,'product'])->name('front.product');
@@ -43,6 +43,7 @@ Route::post('/delete-item',[CartController::class,'deleteItem'])->name('front.de
 Route::get('/checkout',[CartController::class,'checkout'])->name('front.checkout');
 Route::post('/process-checkout',[CartController::class,'processCheckout'])->name('front.processCheckout');
 Route::get('/thanks/{orderId}',[CartController::class,'thankyou'])->name('front.thankyou');
+Route::post('/get-order-summary',[CartController::class,'getOrderSummary'])->name('front.getOrderSummary');
 
 
 

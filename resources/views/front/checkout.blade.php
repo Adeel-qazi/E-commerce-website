@@ -134,12 +134,12 @@
                             <div class="h6"><strong>${{Cart::subtotal()}}</strong></div>
                         </div>
                         <div class="d-flex justify-content-between mt-2">
-                            <div class="h6"><strong>Shipping</strong></div>
-                            <div class="h6"><strong>$0</strong></div>
+                            <div class="h6"><strong>Shipping</strong></div>{{--method of php--}}
+                            <div class="h6"><strong id="shippingCharge">${{number_format($totalShippingCharge,2)}}</strong></div>
                         </div>
                         <div class="d-flex justify-content-between mt-2 summery-end">
                             <div class="h5"><strong>Total</strong></div>
-                            <div class="h5"><strong>${{Cart::subtotal()}}</strong></div>
+                            <div class="h5"><strong id="grandTotal">${{number_format($grandTotal,2)}}</strong></div>
                         </div>                            
                     </div>
                 </div>   
@@ -351,6 +351,23 @@ $("button[type='submit']").prop('disabled',true);
         }
     });
   });
+
+
+$("#country").change(function(){
+    $.ajax({
+        url: '{{route("front.getOrderSummary")}}',
+        type: 'post',
+        data: {country_id: $(this).val()},
+        dataType: 'json',
+        success: function(response){
+            if(response.status == true){
+                $("#shippingCharge").html('$'+response.shippingCharge);
+                $("#grandTotal").html('$'+response.grandTotal);
+            }
+
+        }
+    });
+});
 
 </script>
     
